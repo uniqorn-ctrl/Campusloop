@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const response =
                 await fetch(
-                    "http://localhost:8080/api/listings"
+                    "https://campusloop-production-b9b6.up.railway.app/api/listings"
                 );
 
 
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const response =
                     await fetch(
-                        `http://localhost:8080/api/listings/${id}`,
+                        `https://campusloop-production-b9b6.up.railway.app/api/listings/${id}`,
                         {
                             method: "DELETE"
                         }

@@ -34,7 +34,7 @@ async function loadBackendListings() {
 
         const response =
             await fetch(
-                "http://localhost:8080/api/listings"
+                "https://campusloop-production-b9b6.up.railway.app/api/listings"
             );
 
         if (!response.ok) {

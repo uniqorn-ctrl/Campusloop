@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusLoop - Browse</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<!-- SIDEBAR -->
+<aside class="sidebar"></aside>
+
+    <!-- =========================
+         MAIN AREA
+    ========================== -->
+
+    <div class="main-area">
+
+
+        <!-- Top Bar -->
+        <header class="browse-topbar">
+
+            <div class="browse-search">
+
+                <i data-lucide="search"></i>
+
+                <input
+                    type="text"
+                    id="topSearchBox"
+                    placeholder="Search for items, categories..."
+                >
+
+            </div>
+
+
+            <div class="browse-top-actions">
+
+                <a href="cart.html" class="top-cart">
+
+                    <i data-lucide="shopping-cart"></i>
+
+                    <span>Cart</span>
+
+                </a>
+
+
+                <a href="profile.html" class="top-profile">
+
+    <span class="top-avatar">👤</span>
+
+    <span id="userGreeting">Login / Register</span>
+
+    <span class="top-arrow">▾</span>
+
+</a>
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             BROWSE CONTENT
+        ========================== -->
+
+        <main class="browse-page">
+
+
+            <!-- Heading -->
+
+            <div class="browse-heading">
+
+                <div>
+
+                    <h1>Browse Listings</h1>
+
+                    <p>
+                        Find what you need from students across campus.
+                    </p>
+
+                </div>
+
+
+                <a href="add-listing.html" class="browse-add-btn">
+
+                    <i data-lucide="plus"></i>
+
+                    Add Listing
+
+                </a>
+
+            </div>
+
+
+
+            <!-- Search + Category -->
+
+            <div class="browse-controls">
+
+                <div class="browse-main-search">
+
+                    <i data-lucide="search"></i>
+
+                    <input
+                        type="text"
+                        id="searchBox"
+                        placeholder="Search products..."
+                    >
+
+                </div>
+
+
+                <div class="browse-category">
+
+                    <i data-lucide="sliders-horizontal"></i>
+
+                    <select id="categoryFilter">
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="book">
+                            Books
+                        </option>
+
+                        <option value="electronics">
+                            Electronics
+                        </option>
+
+                        <option value="accessories">
+                            Accessories
+                        </option>
+
+                        <option value="hostel">
+                            Hostel Essentials
+                        </option>
+
+                        <option value="clothing">
+                            Clothing
+                        </option>
+
+                        <option value="sports">
+                            Sports &amp; Fitness
+                        </option>
+
+                        <option value="lab">
+                            Lab Equipment
+                        </option>
+
+                        <option value="other">
+                            Others
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Small section heading -->
+
+            <div class="listing-heading">
+
+                <h2>Campus Products</h2>
+
+                <span>
+                    Available listings
+                </span>
+
+            </div>
+
+
+
+            <!-- Products -->
+
+            <div
+                id="productGrid"
+                class="product-grid">
+            </div>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+   <script src="js/products.js"></script>
+<script src="js/main.js"></script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/sidebar.js"></script>
+
+<script>
+    lucide.createIcons();
+
+    /* Make the top search work with the main product search */
+    const topSearchBox = document.getElementById("topSearchBox");
+    const searchBox = document.getElementById("searchBox");
+
+    if (topSearchBox && searchBox) {
+
+        topSearchBox.addEventListener("input", function () {
+            searchBox.value = this.value;
+
+            searchBox.dispatchEvent(
+                new Event("input", { bubbles: true })
+            );
+        });
+
+        searchBox.addEventListener("input", function () {
+            if (topSearchBox.value !== this.value) {
+                topSearchBox.value = this.value;
+            }
+        });
+
+    }
+</script>
+
+<script src="js/user-header.js"></script>
+<script>
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem("campusLoopProfile") || "null"
+        );
+
+    const userGreeting =
+        document.getElementById("userGreeting");
+
+    if (profile && profile.name) {
+
+        userGreeting.textContent =
+            "Hi, " + profile.name;
+
+    } else {
+
+        userGreeting.textContent =
+            "Login / Register";
+
+    }
+
+</script>
+
+</body>
+
+</html>

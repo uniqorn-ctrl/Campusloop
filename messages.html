@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Messages - CampusLoop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <h2>CampusLoop</h2>
+            <p>Campus Marketplace</p>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="sidebar-link">
+                <span>⌂</span>
+                Home
+            </a>
+
+            <a href="products.html" class="sidebar-link">
+                <span>⌕</span>
+                Browse
+            </a>
+
+            <a href="add-listing.html" class="sidebar-link">
+                <span>＋</span>
+                Add Listing
+            </a>
+
+            <a href="my-list.html" class="sidebar-link">
+                <span>▣</span>
+                My List
+            </a>
+
+            <a href="saved.html" class="sidebar-link">
+                <span>🔖</span>
+                Saved
+            </a>
+
+            <a href="borrow-request.html" class="sidebar-link">
+                <span>▣</span>
+                Borrow Requests
+            </a>
+
+            <a href="messages.html" class="sidebar-link active">
+                <span>💬</span>
+                Messages
+            </a>
+
+            <a href="#" class="sidebar-link">
+                <span>👤</span>
+                Profile
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================= MAIN AREA ================= -->
+
+    <main class="main-area">
+
+        <header class="top-header">
+
+            <div>
+                <h1>Messages</h1>
+                <p>Chat with students on CampusLoop.</p>
+            </div>
+
+        </header>
+
+
+        <!-- ================= MESSAGES ================= -->
+
+        <section class="messages-page">
+
+            <div class="messages-container">
+
+
+                <!-- Conversation List -->
+
+                <div class="conversation-panel">
+
+                    <div class="conversation-header">
+                        <h2>Conversations</h2>
+                    </div>
+
+
+                    <div id="conversationList"
+                         class="conversation-list">
+
+                    </div>
+
+                </div>
+
+
+                <!-- Chat Area -->
+
+                <div class="chat-panel">
+
+                    <div id="chatEmpty"
+                         class="chat-empty">
+
+                        <div class="chat-empty-icon">
+                            💬
+                        </div>
+
+                        <h2>Select a conversation</h2>
+
+                        <p>
+                            Choose a conversation from the left
+                            to start chatting.
+                        </p>
+
+                    </div>
+
+
+                    <div id="chatContent"
+                         class="chat-content"
+                         hidden>
+
+                        <div class="chat-header">
+
+                            <div class="chat-user-icon">
+                                👤
+                            </div>
+
+                            <div>
+                                <h2 id="chatUserName">
+                                    Student
+                                </h2>
+
+                                <p id="chatItemName">
+                                    CampusLoop
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div id="messageList"
+                             class="message-list">
+
+                        </div>
+
+
+                        <form id="messageForm"
+                              class="message-form">
+
+                            <input
+                                type="text"
+                                id="messageInput"
+                                placeholder="Type a message..."
+                                autocomplete="off"
+                                required
+                            >
+
+                            <button
+                                type="submit"
+                                class="primary-btn">
+                                Send
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+
+    // ================================
+    // CAMPUSLOOP MESSAGES
+    // BACKEND + MYSQL VERSION
+    // ================================
+
+    const API_URL = "http://localhost:8080/api/messages";
+
+    // --------------------------------
+    // CURRENT USER
+    // --------------------------------
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem("campusLoopProfile") || "{}"
+        );
+
+    const currentUser = {
+        name: profile.name || "Campus Student",
+        email: profile.email || "user@campusloop.com"
+    };
+
+
+    // --------------------------------
+    // CONVERSATIONS
+    // --------------------------------
+
+    let conversations = [];
+
+    let activeConversationId = null;
+
+
+    // --------------------------------
+    // CREATE CONVERSATION KEY
+    // --------------------------------
+
+    function getConversationKey(
+        email,
+        listingId,
+        item
+    ) {
+
+        return (
+            email +
+            "__" +
+            (
+                listingId !== null &&
+                listingId !== undefined &&
+                listingId !== ""
+                    ? listingId
+                    : item
+            )
+        );
+
+    }
+
+
+    // --------------------------------
+    // LOAD MESSAGES FROM BACKEND
+    // --------------------------------
+
+    async function loadMessages() {
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "?email=" +
+                    encodeURIComponent(
+                        currentUser.email
+                    )
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load messages"
+                );
+
+            }
+
+            const messages =
+                await response.json();
+
+            conversations = [];
+
+
+            // Group messages into conversations
+            messages.forEach(function (message) {
+
+                const isMine =
+                    message.senderEmail ===
+                    currentUser.email;
+
+
+                const otherEmail =
+                    isMine
+                        ? message.receiverEmail
+                        : message.senderEmail;
+
+
+                const otherName =
+                    isMine
+                        ? (
+                            message.receiverName ||
+                            "Campus Student"
+                        )
+                        : (
+                            message.senderName ||
+                            "Campus Student"
+                        );
+
+
+                const item =
+                    message.listingTitle ||
+                    "CampusLoop";
+
+
+                const listingId =
+                    message.listingId !== null &&
+                    message.listingId !== undefined
+                        ? message.listingId
+                        : null;
+
+
+                const key =
+                    getConversationKey(
+                        otherEmail,
+                        listingId,
+                        item
+                    );
+
+
+                let conversation =
+                    conversations.find(
+                        function (c) {
+
+                            return c.key === key;
+
+                        }
+                    );
+
+
+                if (!conversation) {
+
+                    conversation = {
+
+                        id:
+                            "conversation-" +
+                            conversations.length,
+
+                        key: key,
+
+                        user: otherName,
+
+                        email: otherEmail,
+
+                        item: item,
+
+                        listingId: listingId,
+
+                        messages: []
+
+                    };
+
+                    conversations.push(
+                        conversation
+                    );
+
+                }
+
+
+                conversation.messages.push({
+
+                    id: message.id,
+
+                    sender:
+                        isMine
+                            ? "me"
+                            : "them",
+
+                    text: message.text,
+
+                    sentAt: message.sentAt
+
+                });
+
+            });
+
+
+            displayConversations();
+
+
+        } catch (error) {
+
+            console.error(
+                "Message loading error:",
+                error
+            );
+
+            conversations = [];
+
+            displayConversations();
+
+        }
+
+    }
+
+
+    // --------------------------------
+    // DISPLAY CONVERSATIONS
+    // --------------------------------
+
+    function displayConversations() {
+
+        const list =
+            document.getElementById(
+                "conversationList"
+            );
+
+
+        if (!list) {
+            return;
+        }
+
+
+        list.innerHTML = "";
+
+
+        if (conversations.length === 0) {
+
+            list.innerHTML = `
+
+                <div
+                    style="
+                        padding:20px;
+                        color:#777;
+                        text-align:center;
+                    "
+                >
+                    No conversations yet.
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        conversations.forEach(
+            function (conversation) {
+
+                const lastMessage =
+                    conversation.messages.length > 0
+                        ? conversation.messages[
+                            conversation.messages.length - 1
+                        ].text
+                        : "Start a conversation";
+
+
+                const div =
+                    document.createElement("div");
+
+
+                div.className =
+                    "conversation-item";
+
+
+                if (
+                    conversation.id ===
+                    activeConversationId
+                ) {
+
+                    div.classList.add("active");
+
+                }
+
+
+                div.innerHTML = `
+
+                    <div class="conversation-avatar">
+
+                        ${(
+                            conversation.user ||
+                            "C"
+                        ).charAt(0).toUpperCase()}
+
+                    </div>
+
+                    <div class="conversation-info">
+
+                        <strong>
+                            ${conversation.user}
+                        </strong>
+
+                        <span>
+                            ${conversation.item}
+                        </span>
+
+                        <p>
+                            ${lastMessage}
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                div.addEventListener(
+                    "click",
+                    function () {
+
+                        openConversation(
+                            conversation.id
+                        );
+
+                    }
+                );
+
+
+                list.appendChild(div);
+
+            }
+        );
+
+    }
+
+
+    // --------------------------------
+    // OPEN CONVERSATION
+    // --------------------------------
+
+    function openConversation(id) {
+
+        const conversation =
+            conversations.find(
+                function (c) {
+
+                    return c.id === id;
+
+                }
+            );
+
+
+        if (!conversation) {
+            return;
+        }
+
+
+        activeConversationId =
+            conversation.id;
+
+
+        const empty =
+            document.getElementById(
+                "chatEmpty"
+            );
+
+
+        const content =
+            document.getElementById(
+                "chatContent"
+            );
+
+
+        if (empty) {
+
+            empty.style.display =
+                "none";
+
+        }
+
+
+        if (content) {
+
+            content.style.display =
+                "flex";
+
+        }
+
+
+        const userName =
+            document.getElementById(
+                "chatUserName"
+            );
+
+
+        const itemName =
+            document.getElementById(
+                "chatItemName"
+            );
+
+
+        if (userName) {
+
+            userName.textContent =
+                conversation.user;
+
+        }
+
+
+        if (itemName) {
+
+            itemName.textContent =
+                conversation.item;
+
+        }
+
+
+        displayMessages();
+
+        displayConversations();
+
+    }
+
+
+    // --------------------------------
+    // DISPLAY MESSAGES
+    // --------------------------------
+
+    function displayMessages() {
+
+        const messageList =
+            document.getElementById(
+                "messageList"
+            );
+
+
+        if (!messageList) {
+            return;
+        }
+
+
+        messageList.innerHTML = "";
+
+
+        const conversation =
+            conversations.find(
+                function (c) {
+
+                    return c.id ===
+                        activeConversationId;
+
+                }
+            );
+
+
+        if (!conversation) {
+            return;
+        }
+
+
+        conversation.messages.forEach(
+            function (message) {
+
+                const messageDiv =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                messageDiv.className =
+                    "message " +
+                    (
+                        message.sender === "me"
+                            ? "message-sent"
+                            : "message-received"
+                    );
+
+
+                messageDiv.textContent =
+                    message.text;
+
+
+                messageList.appendChild(
+                    messageDiv
+                );
+
+            }
+        );
+
+
+        messageList.scrollTop =
+            messageList.scrollHeight;
+
+    }
+
+
+    // --------------------------------
+    // SEND MESSAGE
+    // --------------------------------
+
+    const messageForm =
+        document.getElementById(
+            "messageForm"
+        );
+
+
+    if (messageForm) {
+
+        messageForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const input =
+                    document.getElementById(
+                        "messageInput"
+                    );
+
+
+                const text =
+                    input
+                        ? input.value.trim()
+                        : "";
+
+
+                if (!text) {
+                    return;
+                }
+
+
+                const conversation =
+                    conversations.find(
+                        function (c) {
+
+                            return c.id ===
+                                activeConversationId;
+
+                        }
+                    );
+
+
+                if (!conversation) {
+
+                    alert(
+                        "Please select a conversation first."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!conversation.email) {
+
+                    alert(
+                        "This seller does not have an email address."
+                    );
+
+                    return;
+
+                }
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            API_URL,
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        senderEmail:
+                                            currentUser.email,
+
+                                        senderName:
+                                            currentUser.name,
+
+                                        receiverEmail:
+                                            conversation.email,
+
+                                        receiverName:
+                                            conversation.user,
+
+                                        listingId:
+                                            conversation.listingId
+                                                ? Number(
+                                                    conversation.listingId
+                                                )
+                                                : null,
+
+                                        listingTitle:
+                                            conversation.item,
+
+                                        text:
+                                            text
+
+                                    })
+
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Message could not be sent"
+                        );
+
+                    }
+
+
+                    const savedMessage =
+                        await response.json();
+
+
+                    conversation.messages.push({
+
+                        id:
+                            savedMessage.id,
+
+                        sender:
+                            "me",
+
+                        text:
+                            savedMessage.text,
+
+                        sentAt:
+                            savedMessage.sentAt
+
+                    });
+
+
+                    input.value = "";
+
+
+                    displayMessages();
+
+                    displayConversations();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Send message error:",
+                        error
+                    );
+
+
+                    alert(
+                        "Could not send message. Make sure the backend is running."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // --------------------------------
+    // CONTACT SELLER
+    // --------------------------------
+
+    async function openSellerFromUrl() {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const sellerName =
+            params.get("seller");
+
+
+        const sellerEmail =
+            params.get("email");
+
+
+        const sellerItem =
+            params.get("item");
+
+
+        const listingIdParam =
+            params.get("listingId");
+
+
+        const listingId =
+            listingIdParam
+                ? Number(listingIdParam)
+                : null;
+
+
+        if (
+            !sellerName ||
+            !sellerItem
+        ) {
+
+            displayConversations();
+
+            return;
+
+        }
+
+
+        // Try to find existing conversation
+        let conversation =
+            conversations.find(
+                function (c) {
+
+                    if (
+                        sellerEmail &&
+                        c.email === sellerEmail
+                    ) {
+
+                        if (
+                            listingId !== null &&
+                            c.listingId !== null
+                        ) {
+
+                            return (
+                                Number(c.listingId) ===
+                                Number(listingId)
+                            );
+
+                        }
+
+
+                        return (
+                            c.item === sellerItem
+                        );
+
+                    }
+
+
+                    return (
+                        c.user === sellerName &&
+                        c.item === sellerItem
+                    );
+
+                }
+            );
+
+
+        // Create conversation if it does not exist
+        if (!conversation) {
+
+            conversation = {
+
+                id:
+                    "conversation-" +
+                    Date.now(),
+
+                key:
+                    getConversationKey(
+                        sellerEmail || "",
+                        listingId,
+                        sellerItem
+                    ),
+
+                user:
+                    sellerName,
+
+                email:
+                    sellerEmail || "",
+
+                item:
+                    sellerItem,
+
+                listingId:
+                    listingId,
+
+                messages: []
+
+            };
+
+
+            conversations.push(
+                conversation
+            );
+
+        }
+
+
+        displayConversations();
+
+        openConversation(
+            conversation.id
+        );
+
+    }
+
+
+    // --------------------------------
+    // START
+    // --------------------------------
+
+    async function initializeMessages() {
+
+        await loadMessages();
+
+        await openSellerFromUrl();
+
+    }
+
+
+    initializeMessages();
+
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/user-header.js"></script>
+</body>
+</html>

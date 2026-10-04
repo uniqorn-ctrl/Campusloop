@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>CampusLoop - Your Campus Marketplace</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+    <style>
+
+        /* =========================
+           HOME HEADER CART
+        ========================= */
+
+        .top-cart {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #075f52;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 18px;
+            white-space: nowrap;
+        }
+
+        .top-cart-icon {
+            font-size: 22px;
+        }
+
+        .top-cart-count {
+            min-width: 22px;
+            height: 22px;
+            padding: 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #e8f5f1;
+            color: #075f52;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 650px) {
+
+            .top-cart {
+                margin-right: 8px;
+            }
+
+            .top-cart-text {
+                display: none;
+            }
+
+            .top-cart-icon {
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app-layout">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <h2>CampusLoop</h2>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="index.html"
+                class="sidebar-link active">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="house"></i>
+                </span>
+
+                <span>Home</span>
+
+            </a>
+
+
+            <a
+                href="products.html"
+                class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="search"></i>
+                </span>
+
+                <span>Browse</span>
+
+            </a>
+
+
+            <a
+                href="add-listing.html"
+                class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="plus-circle"></i>
+                </span>
+
+                <span>Add Listing</span>
+
+            </a>
+
+
+            <a
+                href="my-list.html"
+                class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="list"></i>
+                </span>
+
+                <span>My List</span>
+
+            </a>
+
+
+            <a
+                href="saved.html"
+                class="sidebar-link">
+
+                <span class="sidebar-icon saved-icon">
+                    <i data-lucide="heart"></i>
+                </span>
+
+                <span>Saved</span>
+
+            </a>
+
+
+            <a
+                href="borrow-request.html"
+                class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="refresh-cw"></i>
+                </span>
+
+                <span>Borrow Requests</span>
+
+            </a>
+
+
+            <a
+                href="messages.html"
+                class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="message-circle"></i>
+                </span>
+
+                <span>Messages</span>
+
+            </a>
+
+
+            <a
+                href="profile.html"
+                class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="user-round"></i>
+                </span>
+
+                <span>Profile</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <p>Same Campus</p>
+
+            <strong>Different Needs</strong>
+
+            <span>One Loop ♡</span>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN AREA
+    ========================= -->
+
+    <main class="main-area">
+
+
+        <!-- =========================
+             TOP HEADER
+        ========================= -->
+
+        <header class="top-header">
+
+
+            <div class="mobile-brand">
+                🌿 CampusLoop
+            </div>
+
+
+            <div class="top-search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="searchBox"
+                    placeholder="Search for items, categories...">
+
+            </div>
+
+
+            <div class="user-area">
+
+
+                <!-- CART -->
+
+                <a
+                    href="cart.html"
+                    class="top-cart"
+                    aria-label="Open Cart">
+
+                    <span class="top-cart-icon">
+                        🛒
+                    </span>
+
+                    <span class="top-cart-text">
+                        Cart
+                    </span>
+
+                    <span
+                        id="cartCount"
+                        class="top-cart-count">
+
+                        0
+
+                    </span>
+
+                </a>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    class="notification-btn"
+                    type="button">
+
+                    ♧
+
+                    <span></span>
+
+                </button>
+
+
+                <!-- USER -->
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        👤
+                    </div>
+
+                    <span id="userGreeting">
+                        Login / Register
+                    </span>
+
+                    <span>
+                        ▾
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             CONTENT
+        ========================= -->
+
+        <div class="dashboard-content">
+
+
+            <!-- =========================
+                 CAMPUSLOOP PRESENTATION
+            ========================= -->
+
+            <section class="campus-presentation">
+
+
+                <div class="presentation-content">
+
+
+                    <span class="presentation-badge">
+                        CAMPUS MARKETPLACE
+                    </span>
+
+
+                    <h1>
+                        One Campus.<br>
+                        One Loop.
+                    </h1>
+
+
+                    <p class="presentation-tagline">
+
+                        Buy, sell, borrow, exchange and share
+                        everything you need with your campus community.
+
+                    </p>
+
+
+                    <div class="presentation-buttons">
+
+
+                        <a
+                            href="products.html"
+                            class="explore-btn">
+
+                            Explore Marketplace →
+
+                        </a>
+
+
+                        <a
+                            href="add-listing.html"
+                            class="presentation-secondary-btn">
+
+                            + Add a Listing
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="presentation-visual">
+
+
+                    <div class="presentation-circle">
+
+
+                        <div class="visual-item item-book">
+                            📚
+                        </div>
+
+
+                        <div class="visual-item item-laptop">
+                            💻
+                        </div>
+
+
+                        <div class="visual-item item-backpack">
+                            🎒
+                        </div>
+
+
+                        <div class="visual-item item-sports">
+                            ⚽
+                        </div>
+
+
+                        <div class="visual-center">
+                            ◉
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 ADVERTISEMENT
+            ========================= -->
+
+            <section class="campus-ad">
+
+
+                <div class="ad-content">
+
+
+                    <span class="ad-label">
+                        CAMPUSLOOP
+                    </span>
+
+
+                    <h2>
+
+                        What you don't need<br>
+                        might be exactly what someone else needs.
+
+                    </h2>
+
+
+                    <p>
+
+                        Give your unused books, gadgets, stationery,
+                        hostel essentials and more a second life.
+
+                    </p>
+
+
+                    <a
+                        href="add-listing.html"
+                        class="ad-button">
+
+                        Share an Item
+
+                    </a>
+
+
+                </div>
+
+
+                <div class="ad-visual">
+                    ♻️
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 HOW CAMPUSLOOP WORKS
+            ========================= -->
+
+            <section class="how-campusloop">
+
+
+                <div class="presentation-section-title">
+
+
+                    <span>
+                        SIMPLE &amp; CONNECTED
+                    </span>
+
+
+                    <h2>
+                        How CampusLoop Works
+                    </h2>
+
+
+                </div>
+
+
+
+                <div class="presentation-features">
+
+
+                    <div class="presentation-feature">
+
+                        <div class="feature-icon">
+                            🔍
+                        </div>
+
+                        <h3>
+                            Browse
+                        </h3>
+
+                        <p>
+                            Discover useful items available
+                            from students on your campus.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="presentation-feature">
+
+                        <div class="feature-icon">
+                            ➕
+                        </div>
+
+                        <h3>
+                            List
+                        </h3>
+
+                        <p>
+                            Have something you no longer need?
+                            Put it up for other students.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="presentation-feature">
+
+                        <div class="feature-icon">
+                            🤝
+                        </div>
+
+                        <h3>
+                            Connect
+                        </h3>
+
+                        <p>
+                            Contact students directly and
+                            make your campus exchange happen.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="presentation-feature">
+
+                        <div class="feature-icon">
+                            🔄
+                        </div>
+
+                        <h3>
+                            Reuse
+                        </h3>
+
+                        <p>
+                            Keep useful items within the
+                            campus community.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 QUICK ACTIONS
+            ========================= -->
+
+            <section class="home-quick-actions">
+
+
+                <h2>
+                    Quick Access
+                </h2>
+
+
+                <div class="home-action-grid">
+
+
+                    <a
+                        href="products.html"
+                        class="home-action-card">
+
+                        <span>🛍️</span>
+
+                        <div>
+
+                            <strong>
+                                Browse Marketplace
+                            </strong>
+
+                            <small>
+                                Explore available items
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a
+                        href="add-listing.html"
+                        class="home-action-card">
+
+                        <span>➕</span>
+
+                        <div>
+
+                            <strong>
+                                Add Listing
+                            </strong>
+
+                            <small>
+                                Sell, share or give away
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a
+                        href="my-list.html"
+                        class="home-action-card">
+
+                        <span>📋</span>
+
+                        <div>
+
+                            <strong>
+                                My List
+                            </strong>
+
+                            <small>
+                                Manage your listings
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a
+                        href="messages.html"
+                        class="home-action-card">
+
+                        <span>💬</span>
+
+                        <div>
+
+                            <strong>
+                                Messages
+                            </strong>
+
+                            <small>
+                                Connect with students
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+
+<!-- Needed for Cart count -->
+
+<script src="js/products.js"></script>
+
+
+<!-- Lucide Icons -->
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+
+<!-- Universal Sidebar -->
+
+<script src="js/sidebar.js"></script>
+
+
+<script>
+
+    /* =========================
+       CREATE LUCIDE ICONS
+    ========================= */
+
+    if (typeof lucide !== "undefined") {
+
+        lucide.createIcons();
+
+    }
+
+
+    /* =========================
+       USER GREETING
+    ========================= */
+
+    const profile =
+        JSON.parse(
+            localStorage.getItem(
+                "campusLoopProfile"
+            ) || "null"
+        );
+
+
+    const userGreeting =
+        document.getElementById(
+            "userGreeting"
+        );
+
+
+    if (
+        profile &&
+        profile.name
+    ) {
+
+        userGreeting.textContent =
+            "Hi, " + profile.name;
+
+    }
+
+    else {
+
+        userGreeting.textContent =
+            "Login / Register";
+
+        userGreeting.style.cursor =
+            "pointer";
+
+
+        userGreeting.addEventListener(
+            "click",
+            function () {
+
+                window.location.href =
+                    "login.html";
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       UPDATE CART COUNT
+    ========================= */
+
+    if (
+        typeof updateCartCount === "function"
+    ) {
+
+        updateCartCount();
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

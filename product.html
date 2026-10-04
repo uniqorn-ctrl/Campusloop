@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>CampusLoop - Product Details</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">◉</div>
+
+            <div>
+                <h2>CampusLoop</h2>
+                <p>Your campus marketplace</p>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a href="index.html" class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="house"></i>
+                </span>
+
+                <span>Home</span>
+
+            </a>
+
+
+            <a href="products.html" class="sidebar-link active">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="search"></i>
+                </span>
+
+                <span>Browse</span>
+
+            </a>
+
+
+            <a href="add-listing.html" class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="plus-circle"></i>
+                </span>
+
+                <span>Add Listing</span>
+
+            </a>
+
+
+            <a href="my-list.html" class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="list"></i>
+                </span>
+
+                <span>My List</span>
+
+            </a>
+
+
+            <a href="saved.html" class="sidebar-link">
+
+                <span class="sidebar-icon saved-icon">
+                    <i data-lucide="heart"></i>
+                </span>
+
+                <span>Saved</span>
+
+            </a>
+
+
+            <a href="borrow-request.html" class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="refresh-cw"></i>
+                </span>
+
+                <span>Borrow Requests</span>
+
+            </a>
+
+
+            <a href="messages.html" class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="message-circle"></i>
+                </span>
+
+                <span>Messages</span>
+
+            </a>
+
+
+            <a href="profile.html" class="sidebar-link">
+
+                <span class="sidebar-icon">
+                    <i data-lucide="user-round"></i>
+                </span>
+
+                <span>Profile</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <p>Same Campus</p>
+
+            <strong>Different Needs</strong>
+
+            <span>One Loop ♡</span>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN AREA
+    ========================== -->
+
+    <div class="main-area">
+
+
+        <!-- Top Bar -->
+
+        <header class="browse-topbar">
+
+            <div class="browse-search">
+
+                <i data-lucide="search"></i>
+
+                <input
+                    type="text"
+                    id="topSearchBox"
+                    placeholder="Search for items, categories..."
+                >
+
+            </div>
+
+
+            <div class="browse-top-actions">
+
+                <a
+                    href="cart.html"
+                    class="top-cart">
+
+                    <i data-lucide="shopping-cart"></i>
+
+                    <span>
+                        Cart
+                    </span>
+
+                    <span id="cartCount">
+                        0
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="profile.html"
+                    class="top-profile">
+
+                    <span class="top-avatar">
+                        👤
+                    </span>
+
+                    <span>
+                        Hi, Student
+                    </span>
+
+                    <span class="top-arrow">
+                        ▾
+                    </span>
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             PRODUCT DETAILS
+        ========================== -->
+
+        <main class="product-details-page">
+
+
+            <!-- Back -->
+
+            <a
+                href="products.html"
+                class="back-to-browse">
+
+                <i data-lucide="arrow-left"></i>
+
+                Back to Browse
+
+            </a>
+
+
+            <!-- Page heading -->
+
+            <div class="product-details-heading">
+
+                <span>
+                    CampusLoop Listing
+                </span>
+
+                <span>
+                    Product Details
+                </span>
+
+            </div>
+
+
+            <!-- Existing Product Details -->
+
+            <div
+                id="productDetails"
+                class="details-card">
+            </div>
+
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+                <script src="js/products.js"></script>
+                 <script src="js/product.js"></script>
+            <script src="https://unpkg.com/lucide@latest"></script>
+            <script src="js/sidebar.js"></script>
+
+<script src="js/user-header.js"></script>
+</body>
+
+</html>

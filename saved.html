@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Saved - CampusLoop</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+    <div class="sidebar-logo">
+        <h2>CampusLoop</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <a href="index.html" class="sidebar-link">
+            <span class="sidebar-icon">
+                <i data-lucide="house"></i>
+            </span>
+            <span>Home</span>
+        </a>
+
+        <a href="products.html" class="sidebar-link">
+            <span class="sidebar-icon">
+                <i data-lucide="search"></i>
+            </span>
+            <span>Browse</span>
+        </a>
+
+        <a href="add-listing.html" class="sidebar-link">
+            <span class="sidebar-icon">
+                <i data-lucide="plus-circle"></i>
+            </span>
+            <span>Add Listing</span>
+        </a>
+
+        <a href="my-list.html" class="sidebar-link">
+            <span class="sidebar-icon">
+                <i data-lucide="list"></i>
+            </span>
+            <span>My List</span>
+        </a>
+
+        <a href="saved.html" class="sidebar-link">
+            <span class="sidebar-icon saved-icon">
+                <i data-lucide="heart"></i>
+            </span>
+            <span>Saved</span>
+        </a>
+
+        <a href="borrow-request.html" class="sidebar-link">
+            <span class="sidebar-icon">
+                <i data-lucide="refresh-cw"></i>
+            </span>
+            <span>Borrow Requests</span>
+        </a>
+
+        <a href="messages.html" class="sidebar-link">
+            <span class="sidebar-icon">
+                <i data-lucide="message-circle"></i>
+            </span>
+            <span>Messages</span>
+        </a>
+
+        <a href="profile.html" class="sidebar-link">
+            <span class="sidebar-icon">
+                <i data-lucide="user-round"></i>
+            </span>
+            <span>Profile</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+    <!-- ================= MAIN AREA ================= -->
+
+    <main class="main-area">
+
+        <!-- Top Header -->
+
+        <header class="top-header">
+
+            <div>
+                <h1>Saved Items</h1>
+                <p>Items you saved for later.</p>
+            </div>
+
+            <div class="header-actions">
+
+                <a href="cart.html" class="cart-button">
+                    🛒 Cart
+                    <span id="cartCount">0</span>
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= SAVED PAGE ================= -->
+
+        <section class="saved-page">
+
+            <div class="saved-header">
+
+                <h2>Your Saved Items</h2>
+
+                <p>
+                    Keep track of books, stationery and other campus items
+                    you may want later.
+                </p>
+
+            </div>
+
+
+            <!-- Saved items will appear here -->
+
+            <div
+                id="savedGrid"
+                class="saved-grid"
+                aria-live="polite">
+            </div>
+
+
+            <!-- Empty state -->
+
+            <div
+                id="savedEmpty"
+                class="saved-empty">
+
+                <div class="saved-empty-icon">
+                    🔖
+                </div>
+
+                <h2>No saved items yet</h2>
+
+                <p>
+                    When you save an item from Browse, it will appear here.
+                </p>
+
+                <a
+                    href="products.html"
+                    class="primary-btn">
+                    Browse Items
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="js/products.js"></script>
+
+<script>
+
+    // Update cart count
+    function updateSavedCartCount() {
+
+        const cart =
+            JSON.parse(
+                localStorage.getItem("campusLoopCart")
+            ) || [];
+
+        const cartCount =
+            document.getElementById("cartCount");
+
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+
+    updateSavedCartCount();
+
+
+    // Get saved items
+    function getSavedItems() {
+
+        return JSON.parse(
+            localStorage.getItem("campusLoopSaved")
+        ) || [];
+    }
+
+
+    // Display saved items
+    function displaySavedItems() {
+
+        const savedGrid =
+            document.getElementById("savedGrid");
+
+        const savedEmpty =
+            document.getElementById("savedEmpty");
+
+        const savedItems =
+            getSavedItems();
+
+        savedGrid.innerHTML = "";
+
+
+        if (savedItems.length === 0) {
+
+            savedEmpty.style.display = "block";
+
+            return;
+        }
+
+
+        savedEmpty.style.display = "none";
+
+
+        savedItems.forEach(item => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "saved-card";
+
+
+            card.innerHTML = `
+
+                <div class="saved-card-top">
+
+                    <span class="saved-badge">
+                        🔖 Saved
+                    </span>
+
+                    <button
+                        class="remove-saved-btn"
+                        onclick="removeSavedItem(${item.id})">
+                        ✕
+                    </button>
+
+                </div>
+
+
+                <h3>
+                    ${item.name}
+                </h3>
+
+
+                <p class="saved-category">
+                    ${item.category}
+                </p>
+
+
+                <div class="saved-price">
+
+                    ${
+                        item.price === 0
+                        ? "Free"
+                        : "₹" + item.price
+                    }
+
+                </div>
+
+
+                <div class="saved-card-actions">
+
+                    <a
+                        href="product.html?id=${item.id}"
+                        class="primary-btn">
+                        View Item
+                    </a>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="removeSavedItem(${item.id})">
+                        Remove
+                    </button>
+
+                </div>
+
+            `;
+
+            savedGrid.appendChild(card);
+
+        });
+
+    }
+
+
+    // Remove saved item
+    function removeSavedItem(id) {
+
+        let savedItems =
+            getSavedItems();
+
+        savedItems =
+            savedItems.filter(
+                item => item.id !== id
+            );
+
+        localStorage.setItem(
+            "campusLoopSaved",
+            JSON.stringify(savedItems)
+        );
+
+        displaySavedItems();
+    }
+
+
+    // Display when page opens
+    displaySavedItems();
+
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/user-header.js"></script>
+</body>
+</html>

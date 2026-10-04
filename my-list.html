@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusLoop - My List</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-logo">🌿</div>
+            <div>
+                <h2>CampusLoop</h2>
+                <p>Buy • Sell • Exchange</p>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="sidebar-link"><span>⌂</span>Home</a>
+            <a href="products.html" class="sidebar-link"><span>⌕</span>Browse</a>
+            <a href="add-listing.html" class="sidebar-link"><span>＋</span>Add Listing</a>
+           <a href="my-list.html" class="sidebar-link"><span>📝</span>My List</a>
+            <a href="saved.html" class="sidebar-link"><span>🔖</span>Saved</a>
+           <a href="borrow-request.html" class="sidebar-link"><span>🔄</span>Borrow Requests</a>
+            <a href="messages.html" class="sidebar-link"><span>💬</span>Messages</a>
+            <a href="profile.html" class="sidebar-link"><span>👤</span>Profile</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <p>Same Campus</p>
+            <strong>Different Needs</strong>
+            <br>
+            <span>One Loop ♡</span>
+        </div>
+    </aside>
+    <main class="main-area">
+        <header class="top-header">
+            <div class="mobile-brand">🌿 CampusLoop</div>
+            <div class="top-search">
+                <span>⌕</span>
+                <input type="text" placeholder="Search for items, categories...">
+            </div>
+            <div class="user-area">
+                <button class="notification-btn">♧<span></span></button>
+                <div class="user-profile">
+                    <div class="user-avatar">👤</div>
+                    <span>Hi, Student</span>
+                    <span>▾</span>
+                </div>
+            </div>
+        </header>
+        <div class="dashboard-content">
+            <section class="my-list-page">
+                <div class="listing-header">
+                    <h1>My List</h1>
+                    <p>Manage the items you have posted on CampusLoop.</p>
+                </div>
+                <div id="myListGrid" class="my-list-grid" aria-live="polite"></div>
+                <div id="myListEmpty" class="my-list-empty" hidden>
+                    <div class="my-list-empty-icon">📦</div>
+                    <h2>Your list is empty</h2>
+                    <p>When you post an item, it will appear here so you can manage it.</p>
+                    <a href="add-listing.html" class="primary-btn">＋ Add your first listing</a>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+<script src="js/my-list.js"></script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/user-header.js"></script>
+</body>
+</html>

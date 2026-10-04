@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - CampusLoop</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+        CampusLoop
+    </div>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="cart.html">
+
+            Cart
+
+            <span id="cartCount">
+                0
+            </span>
+
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+    <div class="checkout-card">
+
+        <h1>
+            Checkout
+        </h1>
+
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="checkout-section">
+
+            <h2>
+                Order Summary
+            </h2>
+
+            <div id="checkoutSummary">
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMER DETAILS -->
+
+        <div class="checkout-section">
+
+            <h2>
+                Delivery Details
+            </h2>
+
+
+            <form id="checkoutForm">
+
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+
+                <label>
+                    Phone Number
+                </label>
+
+                <input
+                    id="phone"
+                    type="tel"
+                    placeholder="Enter phone number"
+                    pattern="[0-9]{10}"
+                    required
+                >
+
+
+                <label>
+                    Delivery Address
+                </label>
+
+                <textarea
+                    id="address"
+                    placeholder="Enter delivery address"
+                    required>
+                </textarea>
+
+
+                <!-- PAYMENT -->
+
+                <h2>
+                    Payment Method
+                </h2>
+
+
+                <div class="payment-options">
+
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="cod"
+                            checked
+                        >
+
+                        <span>
+                            💵 Cash on Delivery
+                        </span>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="upi"
+                        >
+
+                        <span>
+                            📱 UPI
+                        </span>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="card"
+                        >
+
+                        <span>
+                            💳 Card
+                        </span>
+
+                    </label>
+
+
+                    <label class="payment-option">
+
+                        <input
+                            type="radio"
+                            name="payment"
+                            value="netbanking"
+                        >
+
+                        <span>
+                            🏦 Net Banking
+                        </span>
+
+                    </label>
+
+
+                </div>
+
+
+                <!-- UPI -->
+            <div id="upiSection" class="payment-details hidden">
+
+            <h3>💳 UPI Payment</h3>
+            <p>
+                Scan the QR code using your UPI app to make the payment.
+            </p>
+            
+            <div id="qrCode"></div>
+            <p class="qramount">
+                Amount:
+                <strong id="qrAmount">₹0</strong>
+            </p>
+            <p class="qrnote">
+                Google Pay PhonePe Paytm BHIM
+            </p>
+            </div>
+                <!-- CARD -->
+
+                <div
+                    id="cardSection"
+                    class="payment-details hidden">
+
+                    <label>
+                        Card Number
+                    </label>
+
+                    <input
+                        id="cardNumber"
+                        type="text"
+                        maxlength="16"
+                        placeholder="Enter 16 digit card number"
+                    >
+
+
+                    <div class="card-row">
+
+                        <div>
+
+                            <label>
+                                Expiry
+                            </label>
+
+                            <input
+                                id="expiry"
+                                type="text"
+                                placeholder="MM/YY"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label>
+                                CVV
+                            </label>
+
+                            <input
+                                id="cvv"
+                                type="password"
+                                maxlength="3"
+                                placeholder="CVV"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NET BANKING -->
+
+                <div
+                    id="bankSection"
+                    class="payment-details hidden">
+
+                    <label>
+                        Select Bank
+                    </label>
+
+                    <select id="bank">
+
+                        <option value="">
+                            Select your bank
+                        </option>
+
+                        <option value="sbi">
+                            State Bank of India
+                        </option>
+
+                        <option value="hdfc">
+                            HDFC Bank
+                        </option>
+
+                        <option value="icici">
+                            ICICI Bank
+                        </option>
+
+                        <option value="axis">
+                            Axis Bank
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn payment-btn">
+
+                    Place Order
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+        <!-- SUCCESS MESSAGE -->
+
+        <div
+            id="orderMessage"
+            class="success">
+        </div>
+
+    </div>
+
+</main>
+
+<script src="js/products.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="js/checkout.js"></script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/user-header.js"></script>
+</body>
+
+</html>

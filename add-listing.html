@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>CampusLoop - Add Listing</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                🌿
+            </div>
+
+            <div>
+                <h2>CampusLoop</h2>
+
+                <p>
+                    Buy • Sell • Exchange
+                </p>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="house"></i>
+                </span>
+                Home
+            </a>
+
+            <a href="products.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="search"></i>
+                </span>
+                Browse
+            </a>
+
+            <a href="add-listing.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="plus-circle"></i>
+                </span>
+                Add Listing
+            </a>
+
+            <a href="my-list.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="list"></i>
+                </span>
+              My List
+            </a>
+
+           <a href="saved.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="heart"></i>
+                </span>
+                Saved
+             </a>
+
+            <a href="borrow-request.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="refresh-cw"></i>
+                </span>
+               Borrow Requests
+            </a>
+
+           <a href="messages.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="message-circle"></i>
+                </span>
+               Messages
+            </a>
+
+            <a href="profile.html" class="sidebar-link active">
+                <span class="sidebar-icon">
+                    <i data-lucide="user-round"></i>
+                </span>
+               Profile
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <p>
+                Same Campus
+            </p>
+
+            <strong>
+                Different Needs
+            </strong>
+
+            <br>
+
+            <span>
+                One Loop ♡
+            </span>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN AREA -->
+    <main class="main-area">
+
+        <!-- HEADER -->
+        <header class="top-header">
+
+            <div class="mobile-brand">
+                🌿 CampusLoop
+            </div>
+
+            <div class="top-search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search for items, categories...">
+
+            </div>
+
+            <div class="user-area">
+
+                <button class="notification-btn">
+                    ♧
+                    <span></span>
+                </button>
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        👤
+                    </div>
+
+                    <span>
+                        Hi, Student
+                    </span>
+
+                    <span>
+                        ▾
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+        <div class="dashboard-content">
+
+            <div class="listing-page">
+
+                <div class="listing-header">
+
+                    <h1>
+                        Add New Listing
+                    </h1>
+
+                    <p>
+                        Sell, exchange, lend or give away an item to someone on campus.
+                    </p>
+
+                </div>
+
+
+                <form id="listingForm" class="listing-form">
+
+                    <!-- ITEM NAME -->
+                    <div class="form-group">
+
+                        <label for="itemName">
+                            Item Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="itemName"
+                            placeholder="Example: Scientific Calculator"
+                            required>
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+                    <div class="form-group">
+
+                        <label for="itemCategory">
+                            Category
+                        </label>
+
+                        <select
+                            id="itemCategory"
+                            required>
+
+                            <option value="">
+                                Select a category
+                            </option>
+
+                            <option value="book">
+                                Books & Study Materials
+                            </option>
+
+                            <option value="stationery">
+                                Stationery
+                            </option>
+
+                            <option value="electronics">
+                                Electronics
+                            </option>
+
+                            <option value="accessories">
+                                Accessories
+                            </option>
+
+                            <option value="hostel">
+                                Hostel Essentials
+                            </option>
+
+                            <option value="clothing">
+                                Clothing
+                            </option>
+
+                            <option value="sports">
+                                Sports & Fitness
+                            </option>
+
+                            <option value="lab">
+                                Lab Equipment
+                            </option>
+
+                            <option value="other">
+                                Others
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LISTING TYPE -->
+                    <div class="form-group">
+
+                        <label>
+                            Listing Type
+                        </label>
+
+                        <div class="listing-types">
+
+                            <label class="listing-type-option">
+
+                                <input
+                                    type="radio"
+                                    name="listingType"
+                                    value="sale"
+                                    checked>
+
+                                <span>
+                                    💰 For Sale
+                                </span>
+
+                            </label>
+
+
+                            <label class="listing-type-option">
+
+                                <input
+                                    type="radio"
+                                    name="listingType"
+                                    value="borrow">
+
+                                <span>
+                                    🔄 For Borrow
+                                </span>
+
+                            </label>
+
+
+                            <label class="listing-type-option">
+
+                                <input
+                                    type="radio"
+                                    name="listingType"
+                                    value="exchange">
+
+                                <span>
+                                    🔁 Exchange
+                                </span>
+
+                            </label>
+
+
+                            <label class="listing-type-option">
+
+                                <input
+                                    type="radio"
+                                    name="listingType"
+                                    value="giveaway">
+
+                                <span>
+                                    🎁 Give Away
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRICE -->
+                    <div
+                        class="form-group"
+                        id="priceGroup">
+
+                        <label for="itemPrice">
+                            Price (₹)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="itemPrice"
+                            placeholder="Example: 500"
+                            min="0">
+
+                    </div>
+
+
+                    <!-- CONDITION -->
+                    <div class="form-group">
+
+                        <label for="itemCondition">
+                            Condition
+                        </label>
+
+                        <select id="itemCondition">
+
+                            <option value="new">
+                                New
+                            </option>
+
+                            <option value="like-new">
+                                Like New
+                            </option>
+
+                            <option value="good" selected>
+                                Good
+                            </option>
+
+                            <option value="used">
+                                Used
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+                    <div class="form-group">
+
+                        <label for="itemLocation">
+                            Pickup / Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="itemLocation"
+                            placeholder="Example: CSE Block">
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+                    <div class="form-group">
+
+                        <label for="itemDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="itemDescription"
+                            rows="5"
+                            placeholder="Describe your item..."></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+                    <div class="listing-form-actions">
+
+                        <a
+                            href="index.html"
+                            class="secondary-btn">
+
+                            Cancel
+
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="primary-btn">
+
+                            + Post Listing
+
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="listingMessage"
+                        class="listing-message">
+                    </p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script src="js/add-listing.js?v=2"></script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+<script src="js/sidebar.js"></script>
+<script src="js/user-header.js"></script>
+</body>
+
+</html>

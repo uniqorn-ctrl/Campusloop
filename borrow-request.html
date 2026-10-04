@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>CampusLoop - Borrow Requests</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =========================
+         LEFT SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                🌿
+            </div>
+
+            <div>
+                <h2>CampusLoop</h2>
+
+                <p>
+                    Buy • Sell • Exchange
+                </p>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="index.html"
+                class="sidebar-link">
+
+                <span>⌂</span>
+                Home
+
+            </a>
+
+
+            <a
+                href="products.html"
+                class="sidebar-link">
+
+                <span>⌕</span>
+                Browse
+
+            </a>
+
+
+            <a
+                href="add-listing.html"
+                class="sidebar-link">
+
+                <span>＋</span>
+                Add Listing
+
+            </a>
+
+
+            <a 
+              href="my-list.html" class="sidebar-link">
+              <span>📝</span>
+               My List
+            </a>
+
+            <a  
+              href="saved.html" class="sidebar-link">
+              <span>🔖</span>
+              Saved
+            </a>
+            <a  
+               href="borrow-request.html" class="sidebar-link">
+               <span>🔄</span>
+               Borrow Requests
+            </a>
+            <a 
+                href="messages.html" class="sidebar-link">
+                <span>💬</span>
+                Messages
+            </a>
+
+
+            <a 
+               href="profile.html" class="sidebar-link">
+               <span>👤</span>
+               Profile
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <p>
+                Same Campus
+            </p>
+
+            <strong>
+                Different Needs
+            </strong>
+
+            <br>
+
+            <span>
+                One Loop ♡
+            </span>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN AREA
+    ========================== -->
+
+    <main class="main-area">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="mobile-brand">
+                🌿 CampusLoop
+            </div>
+
+
+            <div class="top-search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    placeholder="Search for items, categories...">
+
+            </div>
+
+
+            <div class="user-area">
+
+                <button class="notification-btn">
+
+                    ♧
+
+                    <span></span>
+
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        👤
+                    </div>
+
+                    <span>
+                        Hi, Student
+                    </span>
+
+                    <span>
+                        ▾
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             PAGE CONTENT
+        ========================== -->
+
+        <div class="dashboard-content">
+
+
+            <section class="borrow-page">
+
+
+                <!-- PAGE HEADER -->
+
+                <div class="borrow-header">
+
+                    <div>
+
+                        <p class="small-title">
+                            CAMPUSLOOP
+                        </p>
+
+                        <h1>
+                            Borrow Requests
+                        </h1>
+
+                        <p>
+                            Track the items you have requested
+                            to borrow from other students.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FILTERS -->
+
+                <div class="borrow-filters">
+
+                    <button
+                        class="borrow-filter active"
+                        onclick="filterRequests('all', this)">
+
+                        All
+
+                    </button>
+
+
+                    <button
+                        class="borrow-filter"
+                        onclick="filterRequests('pending', this)">
+
+                        🟡 Pending
+
+                    </button>
+
+
+                    <button
+                        class="borrow-filter"
+                        onclick="filterRequests('approved', this)">
+
+                        🟢 Approved
+
+                    </button>
+
+
+                    <button
+                        class="borrow-filter"
+                        onclick="filterRequests('rejected', this)">
+
+                        🔴 Rejected
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- REQUEST LIST -->
+
+                <div
+                    id="borrowRequests"
+                    class="borrow-request-list">
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script>
+
+const borrowRequests = [
+
+    {
+        id: 1,
+        item: "Scientific Calculator",
+        owner: "Arjun",
+        location: "Library",
+        date: "2 October 2026",
+        period: "3 days",
+        status: "pending"
+    },
+
+    {
+        id: 2,
+        item: "Engineering Drawing Kit",
+        owner: "Ananya",
+        location: "CSE Block",
+        date: "30 September 2026",
+        period: "2 days",
+        status: "approved"
+    },
+
+    {
+        id: 3,
+        item: "Lab Coat",
+        owner: "Rahul",
+        location: "Physics Department",
+        date: "28 September 2026",
+        period: "1 day",
+        status: "rejected"
+    }
+
+];
+
+
+
+/* =========================
+   DISPLAY REQUESTS
+========================= */
+
+function displayRequests(filter = "all") {
+
+    const container =
+        document.getElementById("borrowRequests");
+
+
+    const filtered =
+        filter === "all"
+            ? borrowRequests
+            : borrowRequests.filter(
+                request =>
+                    request.status === filter
+            );
+
+
+    if (filtered.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="borrow-empty">
+
+                <div class="borrow-empty-icon">
+                    📚
+                </div>
+
+                <h2>
+                    No borrow request
+                </h2>
+
+                <p>
+                    You don't have any
+                    ${filter === "all" ? "" : filter}
+                    borrow request.
+                </p>
+
+                <a
+                    href="products.html"
+                    class="primary-btn">
+
+                    Browse Items
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML =
+        filtered.map(request => `
+
+            <div class="borrow-card">
+
+
+                <div class="borrow-item-icon">
+                    📚
+                </div>
+
+
+                <div class="borrow-info">
+
+                    <h3>
+                        ${request.item}
+                    </h3>
+
+
+                    <p>
+                        👤 Owner:
+                        ${request.owner}
+                    </p>
+
+
+                    <p>
+                        📍
+                        ${request.location}
+                    </p>
+
+
+                    <p>
+                        📅 Requested:
+                        ${request.date}
+                    </p>
+
+
+                    <p>
+                        ⏱ Borrow period:
+                        ${request.period}
+                    </p>
+
+                </div>
+
+
+                <div class="borrow-status">
+
+                    <span
+                        class="status ${request.status}">
+
+                        ${
+                            request.status === "pending"
+                                ? "🟡 Pending"
+                                : request.status === "approved"
+                                    ? "🟢 Approved"
+                                    : "🔴 Rejected"
+                        }
+
+                    </span>
+
+
+                    ${
+                        request.status === "pending"
+                            ? `
+                                <button
+                                    class="cancel-borrow-btn"
+                                    onclick="cancelRequest(${request.id})">
+
+                                    Cancel Request
+
+                                </button>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+
+            </div>
+
+        `).join("");
+
+}
+
+
+
+/* =========================
+   FILTER REQUESTS
+========================= */
+
+function filterRequests(status, button) {
+
+    document
+        .querySelectorAll(".borrow-filter")
+        .forEach(filterButton => {
+
+            filterButton.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    displayRequests(status);
+
+}
+
+
+
+/* =========================
+   CANCEL REQUEST
+========================= */
+
+function cancelRequest(id) {
+
+    const index =
+        borrowRequests.findIndex(
+            request =>
+                request.id === id
+        );
+
+
+    if (index !== -1) {
+
+        borrowRequests.splice(
+            index,
+            1
+        );
+
+    }
+
+
+    displayRequests();
+
+
+    alert(
+        "Borrow request cancelled."
+    );
+
+}
+
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
+
+displayRequests();
+
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/user-header.js"></script>
+</body>
+
+</html>

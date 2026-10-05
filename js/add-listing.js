@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const response =
                 await fetch(
-                    "https://campusloop-production-b9b6.up.railway.app/api/listings",
+                    "https://campusloop-production-9e06.up.railway.app/api/listings",
                     {
                         method: "POST",
 

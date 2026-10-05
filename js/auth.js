@@ -1,4 +1,4 @@
-const API_URL = "https://campusloop-production-b9b6.up.railway.app/api/users";
+const API_URL = "https://campusloop-production-9e06.up.railway.app/api/users";
 
 
 // ==========================================

@@ -354,7 +354,7 @@ async function loadBackendListing() {
 
         const response =
             await fetch(
-                `https://campusloop-production-b9b6.up.railway.app/api/listings/${id}`
+                `https://campusloop-production-9e06.up.railway.app/api/listings/${id}`
             );
 
 
